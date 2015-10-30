@@ -1,1 +1,1 @@
-azure
+Handy Azure powershell scripts
