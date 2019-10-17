@@ -1,11 +1,12 @@
 #Author: Jeff Miles
 #Source: https://faultbucket.ca/2019/05/get-azure-vm-uptime-sorta/
 
-Select-AzSubscription 
+Select-AzSubscription -Subscription 'Non Production'
 $comparedate = (get-date).AddDays(-14)
 $rg = "resourcegroup"
 #Get the Instance view of a collection of virtual machines (returns the PowerState property)
-$vms = get-azvm -status -resourcegroup $rg
+#$vms = get-azvm -status -resourcegroup $rg
+$vms = get-azvm -status
  
 #Iterate through the collection
 foreach ($vm in $vms)
@@ -19,7 +20,7 @@ foreach ($vm in $vms)
                 # check if time since it was provisioned (in Statuses[0]) is greater than a value
 		if ($foundvm.Statuses.Time -le $comparedate)
 		{
-			write-output "$($foundvm.name) : running longer than 14 days"
+			write-output "$($foundvm.name) : running longer than 1 day"
 		}
 	}
 }
